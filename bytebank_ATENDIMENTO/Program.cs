@@ -58,7 +58,8 @@ amostra.SetValue(1.8, 1);
 amostra.SetValue(7.1, 2);
 amostra.SetValue(10,3);
 amostra.SetValue(6.9,4);
-TestaMediana(amostra);
+
+//TestaMediana(amostra);
 void TestaMediana(Array array)
 {
     if((array == null) || (array.Length == 0))
@@ -77,4 +78,11 @@ void TestaMediana(Array array)
 
         Console.WriteLine($"Com base na amostra na amostra a mediana = {mediana}.");
     }
+}
+
+int[] valores = { 10, 58, 36, 47 };
+
+for(int i = 0; i  < valores.Length; i++)
+{
+    Console.WriteLine(valores[i]);
 }
