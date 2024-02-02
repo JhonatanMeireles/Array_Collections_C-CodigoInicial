@@ -116,7 +116,12 @@ void TestaArrayDeContasCorrentes()
 //TestaArrayDeContasCorrentes();
 #endregion 
 
-ArrayList _listaContas = new ArrayList();
+List<ContaCorrente> _listaContas = new List<ContaCorrente>()
+{
+    new ContaCorrente(95,"123456-X"){Saldo = 100},
+    new ContaCorrente(95,"951258-X"){Saldo = 200},
+    new ContaCorrente(94, "987321-W") { Saldo = 60 }
+};
 
 AtendimentoCliente();
 void AtendimentoCliente()
@@ -205,6 +210,7 @@ void ListarContas()
     {
         Console.WriteLine("===  Dados da Conta  ===");
         Console.WriteLine($"Número da Conta: {itens.Conta}");
+        Console.WriteLine($"Saldo da Conta: {itens.Saldo}");
         Console.WriteLine($"Titular da Conta: {itens.Titular.Nome}");
         Console.WriteLine($"CPF do Titular: {itens.Titular.Cpf}");
         Console.WriteLine($"Profissão do Titular: {itens.Titular.Profissao}");
