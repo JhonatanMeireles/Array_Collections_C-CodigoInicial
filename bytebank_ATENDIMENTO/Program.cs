@@ -1,4 +1,5 @@
 ﻿using bytebank.Modelos.Conta;
+using bytebank_ATENDIMENTO.bytebank.Exceptions;
 using bytebank_ATENDIMENTO.bytebank.Util;
 using System;
 using System.Collections;
@@ -20,38 +21,38 @@ void TestaArrayInt()
 
     Console.WriteLine($"Tamanho do Array: {idades.Length}");
     int acumulador = 0;
-    for( int i = 0; i < idades.Length; i++)
+    for (int i = 0; i < idades.Length; i++)
     {
         int idade = idades[i];
         Console.WriteLine($"indice[{i}] = {idades[i]}");
         acumulador += idade;
     }
 
-    int media =  acumulador/idades.Length;
+    int media = acumulador / idades.Length;
     Console.WriteLine($"A média de idades é: {media}");
 
 }
 
 void TestaBuscarPalavra()
 {
-    string[] arrayDePalavras= new string[5];
+    string[] arrayDePalavras = new string[5];
 
-    for( int i = 0;i < arrayDePalavras.Length; i++)
+    for (int i = 0; i < arrayDePalavras.Length; i++)
     {
         Console.Write($"Digite {i + 1}ª Palavra: ");
-        arrayDePalavras[i]= Console.ReadLine();
+        arrayDePalavras[i] = Console.ReadLine();
     }
     Console.Write($"Digite a palavra a ser encontrada: ");
     var busca = Console.ReadLine();
 
-    foreach( string palavra in arrayDePalavras )
-    { 
-        if (palavra.Equals(busca)) 
+    foreach (string palavra in arrayDePalavras)
+    {
+        if (palavra.Equals(busca))
         {
             Console.WriteLine($"Palavra encontrada = {busca}.");
             break;
-        } 
-        
+        }
+
     }
 }
 
@@ -59,22 +60,22 @@ Array amostra = Array.CreateInstance(typeof(double), 5);
 amostra.SetValue(5.9, 0);
 amostra.SetValue(1.8, 1);
 amostra.SetValue(7.1, 2);
-amostra.SetValue(10,3);
-amostra.SetValue(6.9,4);
+amostra.SetValue(10, 3);
+amostra.SetValue(6.9, 4);
 
 //TestaMediana(amostra);
 void TestaMediana(Array array)
 {
-    if((array == null) || (array.Length == 0))
+    if ((array == null) || (array.Length == 0))
     {
         Console.WriteLine("Array para cálculo da mediana estpa vazio ou nulo");
     }
     else
     {
-        double[] numerosOrdenados = (double[]) array.Clone();
+        double[] numerosOrdenados = (double[])array.Clone();
         Array.Sort(numerosOrdenados);
-        
-        int tamanho =  numerosOrdenados.Length;
+
+        int tamanho = numerosOrdenados.Length;
         int meio = tamanho / 2;
         double mediana = (tamanho % 2 != 0) ? numerosOrdenados[meio] :
             (numerosOrdenados[meio] + numerosOrdenados[meio - 1]) / 2;
@@ -105,7 +106,7 @@ void TestaArrayDeContasCorrentes()
     //listaDeContas.Remover(contaDoAndre);
     //listaDeContas.ExibirLista();
 
-    for(int i = 0; i < listaDeContas.Tamanho; i++)
+    for (int i = 0; i < listaDeContas.Tamanho; i++)
     {
         ContaCorrente conta = listaDeContas[i];
         Console.WriteLine($"Índice [{i}] = {conta.Conta} / {conta.Numero_agencia}");
@@ -115,6 +116,49 @@ void TestaArrayDeContasCorrentes()
 
 //TestaArrayDeContasCorrentes();
 #endregion 
+# region Exemplos de uso do List
+
+//List<ContaCorrente> _listaContas2 = new List<ContaCorrente>()
+//{
+//    new ContaCorrente(874, "5679787-A"),
+//    new ContaCorrente(874, "445668-B"),
+//    new ContaCorrente(874, "7781438-C")
+//};
+
+//List<ContaCorrente> _listaContas3 = new List<ContaCorrente>()
+//{
+//    new ContaCorrente(951, "5679787-E"),
+//    new ContaCorrente(321, "445668-F"),
+//    new ContaCorrente(719, "7781438-G")
+//};
+
+//_listaContas2.AddRange(_listaContas3);
+//_listaContas2.Reverse();
+
+//for(int i = 0; i < _listaContas2.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{_listaContas2[i].Conta}]");
+//}
+
+//Console.WriteLine("\n\n");
+
+//var range = _listaContas3.GetRange(0,1);
+
+//for (int i = 0; i < range.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
+//}
+
+//Console.WriteLine("\n\n");
+
+//_listaContas3.Clear();
+
+//for (int i = 0; i < _listaContas3.Count; i++)
+//{
+//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
+//}
+
+#endregion
 
 List<ContaCorrente> _listaContas = new List<ContaCorrente>()
 {
@@ -123,36 +167,56 @@ List<ContaCorrente> _listaContas = new List<ContaCorrente>()
     new ContaCorrente(94, "987321-W") { Saldo = 60 }
 };
 
-//AtendimentoCliente();
+AtendimentoCliente();
 void AtendimentoCliente()
 {
-    char opcao = '0';
-    while(opcao != '6')
+    try
     {
-        Console.Clear();
-        Console.WriteLine("================================");
-        Console.WriteLine("===        Atendimento       ===");
-        Console.WriteLine("===1 -   Cadastrar Conta     ===");
-        Console.WriteLine("===2 -   Listar Contas       ===");
-        Console.WriteLine("===3 -   Remover Contas      ===");
-        Console.WriteLine("===4 -   Ordenar Contas      ===");
-        Console.WriteLine("===5 -   Pesquisar Contas    ===");
-        Console.WriteLine("===6 -   Sair do Sistema     ===");
-        Console.WriteLine("================================");
-        Console.WriteLine("\n\n");
-        Console.WriteLine("Digite a opção desejada");
-        opcao = Console.ReadLine()[0];
-        switch(opcao)
+        char opcao = '0';
+        while (opcao != '6')
         {
-            case '1': CadastraConta();
-                break;
-            default: Console.WriteLine("Opção não implementada.");
-                break;
-            case '2':
-                ListarContas();
-                break;
+            Console.Clear();
+            Console.WriteLine("================================");
+            Console.WriteLine("===        Atendimento       ===");
+            Console.WriteLine("===1 -   Cadastrar Conta     ===");
+            Console.WriteLine("===2 -   Listar Contas       ===");
+            Console.WriteLine("===3 -   Remover Contas      ===");
+            Console.WriteLine("===4 -   Ordenar Contas      ===");
+            Console.WriteLine("===5 -   Pesquisar Contas    ===");
+            Console.WriteLine("===6 -   Sair do Sistema     ===");
+            Console.WriteLine("================================");
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Digite a opção desejada");
+            try
+            {
+            opcao = Console.ReadLine()[0];
+
+            }
+            catch (Exception excecao)
+            {
+
+                throw new ByteBankException(excecao.Message);
+            }
+            switch (opcao)
+            {
+                case '1':
+                    CadastraConta();
+                    break;
+                default:
+                    Console.WriteLine("Opção não implementada.");
+                    break;
+                case '2':
+                    ListarContas();
+                    break;
+            }
+
         }
 
+    }
+    catch (ByteBankException excecao)
+    {
+
+        Console.WriteLine($"{excecao.Message}") ;
     }
 }
 
@@ -164,7 +228,7 @@ void CadastraConta()
     Console.WriteLine("================================");
     Console.WriteLine("\n");
     Console.WriteLine("===  Informe dados da conta  ===");
-    
+
     Console.Write("Número da conta: ");
     string numeroConta = Console.ReadLine();
 
@@ -199,14 +263,14 @@ void ListarContas()
     Console.WriteLine("================================");
     Console.WriteLine("\n");
 
-    if(_listaContas.Count <= 0)
+    if (_listaContas.Count <= 0)
     {
         Console.WriteLine("... Não há contas cadastradas! ...");
         Console.ReadKey();
         return;
     }
 
-    foreach(ContaCorrente itens in _listaContas)
+    foreach (ContaCorrente itens in _listaContas)
     {
         Console.WriteLine("===  Dados da Conta  ===");
         Console.WriteLine($"Número da Conta: {itens.Conta}");
@@ -217,44 +281,4 @@ void ListarContas()
         Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         Console.ReadKey();
     }
-}
-
-List<ContaCorrente> _listaContas2 = new List<ContaCorrente>()
-{
-    new ContaCorrente(874, "5679787-A"),
-    new ContaCorrente(874, "445668-B"),
-    new ContaCorrente(874, "7781438-C")
-};
-
-List<ContaCorrente> _listaContas3 = new List<ContaCorrente>()
-{
-    new ContaCorrente(951, "5679787-E"),
-    new ContaCorrente(321, "445668-F"),
-    new ContaCorrente(719, "7781438-G")
-};
-
-_listaContas2.AddRange(_listaContas3);
-_listaContas2.Reverse();
-
-for(int i = 0; i < _listaContas2.Count; i++)
-{
-    Console.WriteLine($"Indice[{i}] = Conta [{_listaContas2[i].Conta}]");
-}
-
-Console.WriteLine("\n\n");
-
-var range = _listaContas3.GetRange(0,1);
-
-for (int i = 0; i < range.Count; i++)
-{
-    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
-}
-
-Console.WriteLine("\n\n");
-
-_listaContas3.Clear();
-
-for (int i = 0; i < _listaContas3.Count; i++)
-{
-    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
 }
