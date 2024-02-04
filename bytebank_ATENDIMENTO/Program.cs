@@ -164,7 +164,7 @@ List<ContaCorrente> _listaContas = new List<ContaCorrente>()
 {
     new ContaCorrente(95,"123456-X"){Saldo = 100},
     new ContaCorrente(95,"951258-X"){Saldo = 200},
-    new ContaCorrente(94, "987321-W") { Saldo = 60 }
+    new ContaCorrente(94, "987321-W"){Saldo = 60}
 };
 
 AtendimentoCliente();
@@ -202,11 +202,17 @@ void AtendimentoCliente()
                 case '1':
                     CadastraConta();
                     break;
-                default:
-                    Console.WriteLine("Opção não implementada.");
-                    break;
                 case '2':
                     ListarContas();
+                    break;
+                case '3':
+                    RemoverContas();
+                    break;
+                case '4':
+                    OrdenarContas();
+                    break;
+                default:
+                    Console.WriteLine("Opção não implementada.");
                     break;
             }
 
@@ -218,6 +224,43 @@ void AtendimentoCliente()
 
         Console.WriteLine($"{excecao.Message}") ;
     }
+}
+
+void OrdenarContas()
+{
+    _listaContas.Sort();
+    Console.WriteLine("lista de contas ordenada");
+    Console.ReadKey();
+}
+
+void RemoverContas()
+{
+    Console.Clear();
+    Console.WriteLine("================================");
+    Console.WriteLine("===    Remover Contas    ===");
+    Console.WriteLine("================================");
+    Console.WriteLine("\n");
+    Console.WriteLine("Informe o número da conta");
+    string numeroConta = Console.ReadLine();
+    ContaCorrente conta = null;
+    foreach(var item in _listaContas)
+    {
+        if (item.Conta.Equals(numeroConta))
+        {
+            conta = item;
+        }
+    }
+    if (conta != null)
+    {
+        _listaContas.Remove(conta);
+        Console.WriteLine("... Conta removida com sucesso! ...");
+    }
+    else
+    {
+        Console.WriteLine("... Conta não localizada para remoção! ...");
+    }
+    Console.ReadKey();
+
 }
 
 void CadastraConta()
