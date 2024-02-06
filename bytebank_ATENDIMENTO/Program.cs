@@ -162,9 +162,9 @@ void TestaArrayDeContasCorrentes()
 
 List<ContaCorrente> _listaContas = new List<ContaCorrente>()
 {
-    new ContaCorrente(95,"123456-X"){Saldo = 100},
-    new ContaCorrente(95,"951258-X"){Saldo = 200},
-    new ContaCorrente(94, "987321-W"){Saldo = 60}
+    new ContaCorrente(95,"123456-X"){Saldo = 100, Titular = new Cliente{Cpf = "11111", Nome = "Bruno"} },
+    new ContaCorrente(95,"951258-X"){Saldo = 200, Titular = new Cliente{Cpf = "222", Nome = "Bruna"} },
+    new ContaCorrente(94, "987321-W"){Saldo = 60, Titular = new Cliente{Cpf = "3333", Nome = "Claudia"} }
 };
 
 AtendimentoCliente();
@@ -189,7 +189,7 @@ void AtendimentoCliente()
             Console.WriteLine("Digite a opção desejada");
             try
             {
-            opcao = Console.ReadLine()[0];
+                opcao = Console.ReadLine()[0];
 
             }
             catch (Exception excecao)
@@ -211,6 +211,9 @@ void AtendimentoCliente()
                 case '4':
                     OrdenarContas();
                     break;
+                case '5':
+                    PesquisarContas();
+                    break;
                 default:
                     Console.WriteLine("Opção não implementada.");
                     break;
@@ -222,8 +225,109 @@ void AtendimentoCliente()
     catch (ByteBankException excecao)
     {
 
-        Console.WriteLine($"{excecao.Message}") ;
+        Console.WriteLine($"{excecao.Message}");
     }
+}
+
+void PesquisarContas()
+{
+    Console.Clear();
+    Console.WriteLine("================================");
+    Console.WriteLine("===    Pesquisar Contas    ===");
+    Console.WriteLine("================================");
+    Console.WriteLine("\n");
+    Console.WriteLine("Deseja pesquisa por (1) NÚMERO DA CONTA, (2) CPF TITULAR ou (3) NÚMERO DA AGÊNCIA");
+    switch (int.Parse(Console.ReadLine()))
+    {
+        case 1:
+            {
+                Console.WriteLine("Informe o número da conta: ");
+                string numeroConta = Console.ReadLine();
+                ContaCorrente consultaConta = ConsultaPorNumeroConta(numeroConta);
+                Console.WriteLine(consultaConta.ToString());
+                Console.ReadKey();
+                break;
+            }
+        case 2:
+            {
+                Console.WriteLine("Informe o CPF do Titular: ");
+                string cpf = Console.ReadLine();
+                ContaCorrente consultaConta = ConsultaPorCPFTitular(cpf);
+                Console.WriteLine(consultaConta.ToString());
+                Console.ReadKey();
+                break;
+            }
+        case 3:
+            {
+                Console.WriteLine("Informe o Nº da Agência: ");
+                int numeroAgencia = int.Parse(Console.ReadLine());
+                var contasPorAgencia = ConsultaPorAgencia(numeroAgencia);
+                ExibeContaPorAgencia(contasPorAgencia);
+                Console.ReadKey();
+                break;
+            }
+        default:
+            Console.WriteLine("Opção inválida");
+            Console.ReadKey();
+            break;
+    }
+
+}
+
+void ExibeContaPorAgencia(List<ContaCorrente> contasPorAgencia)
+{
+    if (contasPorAgencia == null)
+    {
+        Console.WriteLine("Não há dados para a agência informada.");
+    }
+    else
+    {
+
+        foreach (var Con in contasPorAgencia)
+            Console.WriteLine(Con.ToString());
+    }
+}
+
+List<ContaCorrente> ConsultaPorAgencia(int numeroAgencia)
+{
+    var consulta =
+        (
+        from conta in _listaContas
+        where conta.Numero_agencia == numeroAgencia
+        select conta
+
+        ).ToList();
+    return consulta;
+}
+
+ContaCorrente ConsultaPorCPFTitular(string? cpf)
+{
+    //ContaCorrente conta = null;
+    //for (int i = 0; i < _listaContas.Count; i++)
+    //{
+    //    if (_listaContas[i].Titular.Cpf.Equals(cpf))
+    //    {
+    //        conta = _listaContas[i];
+    //    }
+    //}
+    //return conta;
+
+    return _listaContas.Where(conta => conta.Titular.Cpf == cpf).FirstOrDefault();
+}
+
+ContaCorrente ConsultaPorNumeroConta(string? numeroConta)
+{
+    //ContaCorrente conta = null;
+    //for(int i = 0; i<_listaContas.Count; i++)
+    //{
+    //    if (_listaContas[i].Conta.Equals(numeroConta))
+    //    {
+    //        conta = _listaContas[i];
+    //    }
+    //}
+    //return conta;
+
+    return _listaContas.Where(conta => conta.Conta == numeroConta).FirstOrDefault();
 }
 
 void OrdenarContas()
@@ -243,7 +347,7 @@ void RemoverContas()
     Console.WriteLine("Informe o número da conta");
     string numeroConta = Console.ReadLine();
     ContaCorrente conta = null;
-    foreach(var item in _listaContas)
+    foreach (var item in _listaContas)
     {
         if (item.Conta.Equals(numeroConta))
         {
@@ -315,13 +419,7 @@ void ListarContas()
 
     foreach (ContaCorrente itens in _listaContas)
     {
-        Console.WriteLine("===  Dados da Conta  ===");
-        Console.WriteLine($"Número da Conta: {itens.Conta}");
-        Console.WriteLine($"Saldo da Conta: {itens.Saldo}");
-        Console.WriteLine($"Titular da Conta: {itens.Titular.Nome}");
-        Console.WriteLine($"CPF do Titular: {itens.Titular.Cpf}");
-        Console.WriteLine($"Profissão do Titular: {itens.Titular.Profissao}");
-        Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        Console.WriteLine(itens.ToString());
         Console.ReadKey();
     }
 }
