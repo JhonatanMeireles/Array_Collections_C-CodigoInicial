@@ -103,13 +103,20 @@
 			Titular = new Cliente();
 			TotalDeContasCriadas++;
 		}
+        public ContaCorrente(int numero_agencia)
+        {
+            Numero_agencia = numero_agencia;
+            Conta = Guid.NewGuid().ToString().Substring(0, 8);
+            Titular = new Cliente();
+            TotalDeContasCriadas++;
+        }
 
-		public override string ToString()
+        public override string ToString()
 		{
 
 			return $" === DADOS DA CONTA === \n" +
 				   $"Número da Conta : {this.Conta} \n" +
-				   $"Número da Agência: {this.Numero_agencia}" +
+				   $"Número da Agência: {this.Numero_agencia} \n" +
 				   $"Titular da Conta: {this.Titular.Nome} \n" +
 				   $"CPF do Titular  : {this.Titular.Cpf} \n" +
 				   $"Profissão do Titular: { this.Titular.Profissao}" +
