@@ -1,5 +1,7 @@
 ﻿using bytebank.Modelos.Conta;
 using bytebank_ATENDIMENTO.bytebank.Exceptions;
+using Newtonsoft.Json;
+using System.Data;
 
 
 namespace bytebank_ATENDIMENTO.byteBank_Atendimento
@@ -18,7 +20,7 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
             try
             {
                 char opcao = '0';
-                while (opcao != '6')
+                while (opcao != '7')
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
@@ -28,7 +30,8 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                     Console.WriteLine("===3 -   Remover Contas      ===");
                     Console.WriteLine("===4 -   Ordenar Contas      ===");
                     Console.WriteLine("===5 -   Pesquisar Contas    ===");
-                    Console.WriteLine("===6 -   Sair do Sistema     ===");
+                    Console.WriteLine("===6 -   Exportar Contas    ===");
+                    Console.WriteLine("===7 -   Sair do Sistema     ===");
                     Console.WriteLine("================================");
                     Console.WriteLine("\n\n");
                     Console.WriteLine("Digite a opção desejada");
@@ -59,8 +62,10 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                         case '5':
                             PesquisarContas();
                             break;
-
                         case '6':
+                            ExportarContas();
+                            break;
+                        case '7':
                             EncerrarAplicacao();
                             break;
                         default:
@@ -75,6 +80,40 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
             {
 
                 Console.WriteLine($"{excecao.Message}");
+            }
+        }
+
+        private void ExportarContas()
+        {
+            Console.Clear();
+            Console.WriteLine("================================");
+            Console.WriteLine("===    Exportar Contas    ===");
+            Console.WriteLine("================================");
+            Console.WriteLine("\n");
+
+            if(_listaContas.Count <= 0) 
+            {
+                Console.WriteLine("Não existe dados para exportação!");
+                Console.ReadKey();
+            }
+            else
+            {
+                string json = JsonConvert.SerializeObject(_listaContas, Formatting.Indented);
+                try
+                {
+                    FileStream fs = new FileStream("contas.json", FileMode.Create);
+                    using(StreamWriter sw = new StreamWriter(fs)) 
+                    {  
+                        sw.WriteLine(json); 
+                    }
+                    Console.WriteLine("Arquivo criado.");
+
+                }
+                catch (Exception ex)
+                {
+                    throw new ByteBankException(ex.Message);
+                    Console.ReadKey();
+                }
             }
         }
 
