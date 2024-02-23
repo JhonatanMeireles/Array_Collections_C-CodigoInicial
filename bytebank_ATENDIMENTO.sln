@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesafiosDePratica", "Desafi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio1", "Desafios\Desafio1.csproj", "{049DAE08-C162-4745-BE07-50BA73D2746E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio2", "Desafio2\Desafio2.csproj", "{FEBC344B-F284-4C96-9896-CAE51D723655}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio2", "Desafio2\Desafio2.csproj", "{FEBC344B-F284-4C96-9896-CAE51D723655}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bytebank_Modelos", "bytebank_Modelos\bytebank_Modelos.csproj", "{EEA78517-6F85-4640-BE38-900F8D5362FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{FEBC344B-F284-4C96-9896-CAE51D723655}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEBC344B-F284-4C96-9896-CAE51D723655}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEBC344B-F284-4C96-9896-CAE51D723655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA78517-6F85-4640-BE38-900F8D5362FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA78517-6F85-4640-BE38-900F8D5362FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA78517-6F85-4640-BE38-900F8D5362FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA78517-6F85-4640-BE38-900F8D5362FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
