@@ -2,6 +2,7 @@
 using bytebank_ATENDIMENTO.bytebank.Exceptions;
 using Newtonsoft.Json;
 using System.Data;
+using System.Xml.Serialization;
 
 
 namespace bytebank_ATENDIMENTO.byteBank_Atendimento
@@ -30,8 +31,9 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                     Console.WriteLine("===3 -   Remover Contas      ===");
                     Console.WriteLine("===4 -   Ordenar Contas      ===");
                     Console.WriteLine("===5 -   Pesquisar Contas    ===");
-                    Console.WriteLine("===6 -   Exportar Contas    ===");
-                    Console.WriteLine("===7 -   Sair do Sistema     ===");
+                    Console.WriteLine("===6 -   Exportar Contas no formato Json   ===");
+                    Console.WriteLine("===7 -   Exportar Contas no formato XML   ===");
+                    Console.WriteLine("===8 -   Sair do Sistema     ===");
                     Console.WriteLine("================================");
                     Console.WriteLine("\n\n");
                     Console.WriteLine("Digite a opção desejada");
@@ -63,9 +65,12 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                             PesquisarContas();
                             break;
                         case '6':
-                            ExportarContas();
+                            ExportarContasNoFormatoJson();
                             break;
                         case '7':
+                            ExportarContasNoFormatoXml();
+                            break;
+                        case '8':
                             EncerrarAplicacao();
                             break;
                         default:
@@ -83,13 +88,45 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
             }
         }
 
-        private void ExportarContas()
+        private void ExportarContasNoFormatoXml()
         {
             Console.Clear();
-            Console.WriteLine("================================");
-            Console.WriteLine("===    Exportar Contas    ===");
-            Console.WriteLine("================================");
+            Console.WriteLine("============================================");
+            Console.WriteLine("===    Exportar Contas no Formato Json   ===");
+            Console.WriteLine("============================================");
             Console.WriteLine("\n");
+            Thread.Sleep(2000);
+
+
+            if (_listaContas.Count <= 0)
+            {
+                Console.WriteLine("Não existe dados para exportação!");
+                Console.ReadKey();
+            }
+            else
+            {
+                var contasXml = new XmlSerializer(typeof(List<ContaCorrente>));
+                FileStream fs = new FileStream("contas.xml", FileMode.Create);
+                using(StreamWriter sw = new StreamWriter(fs)) 
+                { 
+                    contasXml.Serialize(sw, _listaContas); 
+                }
+                Console.WriteLine(@"Arquivo salvo!");
+                Console.ReadKey();
+
+            }
+        }
+
+
+        private void ExportarContasNoFormatoJson()
+        {
+            Console.Clear();
+            Console.WriteLine("============================================");
+            Console.WriteLine("===    Exportar Contas no Formato Json   ===");
+            Console.WriteLine("============================================");
+            Console.WriteLine("\n");
+            Thread.Sleep(2000);
+
 
             if(_listaContas.Count <= 0) 
             {
@@ -107,7 +144,7 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                         sw.WriteLine(json); 
                     }
                     Console.WriteLine("Arquivo criado.");
-
+                    Console.ReadKey();
                 }
                 catch (Exception ex)
                 {

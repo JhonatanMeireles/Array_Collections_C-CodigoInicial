@@ -134,8 +134,12 @@
 				return this.Numero_agencia.CompareTo(outro.Numero_agencia);
 			}
         }
+        private ContaCorrente()
+        {
 
-		
+        }
+
+
     }
 
 }
