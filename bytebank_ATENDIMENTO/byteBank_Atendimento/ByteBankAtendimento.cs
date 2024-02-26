@@ -105,6 +105,10 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
             }
             else
             {
+                try 
+                {
+                
+                
                 var contasXml = new XmlSerializer(typeof(List<ContaCorrente>));
                 FileStream fs = new FileStream("contas.xml", FileMode.Create);
                 using(StreamWriter sw = new StreamWriter(fs)) 
@@ -113,6 +117,13 @@ namespace bytebank_ATENDIMENTO.byteBank_Atendimento
                 }
                 Console.WriteLine(@"Arquivo salvo!");
                 Console.ReadKey();
+                
+                }
+                catch(Exception ex)
+                {
+                    new ByteBankException(ex.Message); 
+                        
+                }
 
             }
         }
